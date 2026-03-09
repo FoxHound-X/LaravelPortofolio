@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controller\center_controller;
 
-Route::get('/', function () {
-    return view('admin');
-});
+Route::get('/', [center_controller::class, 'index']);
