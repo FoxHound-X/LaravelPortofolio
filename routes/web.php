@@ -1,6 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controller\center_controller;
+use App\Http\Controllers\center_control;
 
-Route::get('/', [center_controller::class, 'index']);
+Route::get('/', [center_control::class, 'index']);

@@ -1,14 +1,17 @@
 <?php
 
-namespace App\Models;
+use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Eloquent\Model;
 
-class data_kamar extends Model
+return new class extends Migration
 {
-    public function up(){
-        Schema::create('users', function (Blueprint $table) {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('data_kamar', function (Blueprint $table) {
             $table->id();
             $table->string('no_kamar');
             $table->string('tipe_kamar');
@@ -19,4 +22,12 @@ class data_kamar extends Model
             $table->timestamps();
         });
     }
-}
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        //
+    }
+};

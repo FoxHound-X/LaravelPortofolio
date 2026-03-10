@@ -75,12 +75,12 @@
       <div class="stats-row">
         <div class="stat-box">
           <div class="stat-label">Total Kamar</div>
-          <div class="stat-num">24</div>
+          <div class="stat-num">{{ $jumlahkamar }}</div>
           <div class="stat-sub">4 sedang maintenance</div>
         </div>
         <div class="stat-box">
-          <div class="stat-label">Pesanan Aktif</div>
-          <div class="stat-num">09</div>
+          <div class="stat-label">Kamar Aktif</div>
+          <div class="stat-num">{{ $KamarAktif }}</div>
           <div class="stat-sub">2 check-in hari ini</div>
         </div>
         <div class="stat-box">
@@ -169,18 +169,21 @@
             </tr>
           </thead>
           <tbody>
+            @foreach ($datakamar as $itemkamar)
+              
             <tr>
-              <td class="mono" style="color:var(--c3);">101</td>
-              <td>Standard Twin</td>
-              <td class="mono">1</td>
-              <td class="mono">2 tamu</td>
-              <td class="mono">Rp 450.000</td>
-              <td><span class="pill pill-available">TERSEDIA</span></td>
+              <td class="mono" style="color:var(--c3);">{{ $itemkamar->no_kamar }}</td>
+              <td>{{ $itemkamar->tipe_kamar }}</td>
+              <td class="mono">{{ $itemkamar->lantai }}</td>
+              <td class="mono">{{ $itemkamar->kapasitas }}</td>
+              <td class="mono">Rp. {{ $itemkamar->harga }}</td>
+              <td><span class="pill pill-available">{{ $itemkamar->status }}</span></td>
               <td>
                 <button class="tbl-btn">EDIT</button>
                 <button class="tbl-btn del">HAPUS</button>
               </td>
             </tr>
+            @endforeach
           </tbody>
         </table>
       </div>

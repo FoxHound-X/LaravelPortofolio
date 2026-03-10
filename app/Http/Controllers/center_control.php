@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\database_kamar;
+use App\Models\DataKamar;
 use Illuminate\Http\Request;
 
 class center_control extends Controller
 {
     public function index(){
-        $datakamar = data_kamar::all();
-        return view('admin', compact('datakamar'));
+        $datakamar = DataKamar::all();
+        $jumlahkamar = DataKamar::count();
+        $KamarAktif = DataKamar::where('status', 1)->count();
+        return view('admin', compact('datakamar', 'jumlahkamar', 'KamarAktif'));
+
     }
 }
