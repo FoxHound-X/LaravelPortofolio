@@ -180,7 +180,11 @@
               <td><span class="pill pill-available">{{ $itemkamar->status }}</span></td>
               <td>
                 <button class="tbl-btn">EDIT</button>
-                <button class="tbl-btn del">HAPUS</button>
+                <form action="/kamar/{{ $itemkamar->id }}" method="POST">
+                  @csrf
+                  @method('DELETE')
+                    <button type="submit" class="tbl-btn del">HAPUS</button>
+                </form>
               </td>
             </tr>
             @endforeach

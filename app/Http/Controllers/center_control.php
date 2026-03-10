@@ -11,6 +11,12 @@ class center_control extends Controller
         $jumlahkamar = DataKamar::count();
         $KamarAktif = DataKamar::where('status', 1)->count();
         return view('admin', compact('datakamar', 'jumlahkamar', 'KamarAktif'));
+    }
 
+    public function delete($id){
+        $kamar = DataKamar::find($id);
+        $kamar->delete();
+
+        return redirect()->back();
     }
 }
