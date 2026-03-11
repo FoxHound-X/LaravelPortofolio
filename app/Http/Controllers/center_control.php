@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\DataKamar;
+use App\Models\user_data;
 
 class center_control extends Controller
 {

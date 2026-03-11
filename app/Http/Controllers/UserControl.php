@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\DataKamar;
 
 
 class UserControl extends Controller
@@ -12,13 +11,11 @@ class UserControl extends Controller
         $data = $request->only('email', 'password');
 
         if(Auth::attempt($data)){
+            $request->session()->regenerate();
 
             if(Auth::user()->role == 'admin'){
-                $datakamar = DataKamar::all();
-                $jmlhkamar = DataKamar::count();
-                $KamarAktif = DataKamar::where('status', 1)->count();
-                return view('admin', compact('datakamar', 'jmlhkamar', 'KamarAktif'));
-                return view('admin');
+                return redirect()->intended('/admin');
+                // return view('admin');
             } else {
                 return redirect('login');
             }

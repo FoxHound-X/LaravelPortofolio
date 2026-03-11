@@ -16,7 +16,7 @@
         <h2>Login Panel</h2>
         <p class="subtitle">Masuk ke dashboard anda</p>
 
-        <form action="{{ route('login.sys') }}" method="POST">\
+        <form action="{{ route('login.sys') }}" method="POST">
             @csrf
             <div class="input-group">
                 <label>Email</label>
