@@ -46,8 +46,9 @@
     </div>
   </nav>
   <div class="sidebar-footer">
-    <div class="nav-item logout" onclick="alert('Logged out')">
-      <span class="nav-icon">←</span> Logout
+    <div class="nav-item logout">
+      <span class="nav-icon">←</span> 
+      <a href="{{ route('logout.sys') }}">Logout</a>
     </div>
   </div>
 </aside>
@@ -75,7 +76,7 @@
       <div class="stats-row">
         <div class="stat-box">
           <div class="stat-label">Total Kamar</div>
-          <div class="stat-num">{{ $jumlahkamar }}</div>
+          <div class="stat-num">{{ $jmlhkamar }}</div>
           <div class="stat-sub">4 sedang maintenance</div>
         </div>
         <div class="stat-box">
@@ -169,25 +170,31 @@
             </tr>
           </thead>
           <tbody>
-            @foreach ($datakamar as $itemkamar)
-              
+            @if ($datakamar->isEmpty())
             <tr>
-              <td class="mono" style="color:var(--c3);">{{ $itemkamar->no_kamar }}</td>
-              <td>{{ $itemkamar->tipe_kamar }}</td>
-              <td class="mono">{{ $itemkamar->lantai }}</td>
-              <td class="mono">{{ $itemkamar->kapasitas }}</td>
-              <td class="mono">Rp. {{ $itemkamar->harga }}</td>
-              <td><span class="pill pill-available">{{ $itemkamar->status }}</span></td>
-              <td>
-                <button class="tbl-btn">EDIT</button>
-                <form action="/kamar/{{ $itemkamar->id }}" method="POST">
-                  @csrf
-                  @method('DELETE')
-                    <button type="submit" class="tbl-btn del">HAPUS</button>
-                </form>
-              </td>
+              <td>Data Sedang Kosong</td>
             </tr>
-            @endforeach
+            @else
+                @foreach ($datakamar as $itemkamar)
+                <tr>
+                  <td class="mono" style="color:var(--c3);">{{ $itemkamar->no_kamar }}</td>
+                  <td>{{ $itemkamar->tipe_kamar }}</td>
+                  <td class="mono">{{ $itemkamar->lantai }}</td>
+                  <td class="mono">{{ $itemkamar->kapasitas }}</td>
+                  <td class="mono">Rp. {{ $itemkamar->harga }}</td>
+                  <td><span class="pill pill-available">{{ $itemkamar->status }}</span></td>
+                  <td>
+                    <button class="tbl-btn">EDIT</button>
+                    <form action="/kamar/{{ $itemkamar->id }}" method="POST">
+                      @csrf
+                      @method('DELETE')
+                        <button type="submit" class="tbl-btn del">HAPUS</button>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+              @endif
+
           </tbody>
         </table>
       </div>

@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 use App\Models\DataKamar;
-use Illuminate\Http\Request;
 
 class center_control extends Controller
 {
     public function index(){
+        return view('login');
+    }
+
+    public function admin(){
         $datakamar = DataKamar::all();
-        $jumlahkamar = DataKamar::count();
+        $jmlhkamar = DataKamar::count();
         $KamarAktif = DataKamar::where('status', 1)->count();
-        return view('admin', compact('datakamar', 'jumlahkamar', 'KamarAktif'));
+        return view('admin', compact('datakamar', 'jmlhkamar', 'KamarAktif'));
     }
 
     public function delete($id){
@@ -19,4 +22,6 @@ class center_control extends Controller
 
         return redirect()->back();
     }
+
+    
 }
