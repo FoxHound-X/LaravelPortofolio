@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\DataKamar;
 use App\Models\user_data;
+use Illuminate\Http\Request;
 
 class center_control extends Controller
 {
@@ -24,5 +25,17 @@ class center_control extends Controller
         return redirect()->back();
     }
 
+    public function tambah_kamar(Request $request){
+
+        DataKamar::create([
+            'no_kamar' => $request->no_kamar,
+            'tipe_kamar' => $request->tipe_kamar,
+            'lantai' => $request->lantai,
+            'kapasitas' => $request->kapasitas,
+            'status' => $request->status,
+            'harga' => $request->harga,
+        ]);
+        return redirect('/admin');
+    }
     
 }

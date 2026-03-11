@@ -235,55 +235,54 @@
 
     <!-- TAMBAH KAMAR -->
     <section class="section" id="tambah-kamar">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Tambah Kamar Baru</div>
+      <form action="/tambah" method="POST">
+        @csrf
+          <div class="card">
+          <div class="card-header">
+            <div class="card-title">Tambah Kamar Baru</div>
+          </div>
+          <div class="form-body">
+            <div class="form-group">
+              <label>Nomor Kamar</label>
+              <input name="no_kamar" type="text" placeholder="cth. 301"/>
+            </div>
+            <div class="form-group">
+              <label>Tipe Kamar</label>
+              <select name="tipe_kamar">
+                <option value="Standard Twin">Standard Twin</option>
+                <option value="Standard Queen" >Standard Queen</option>
+                <option value="Deluxe King" >Deluxe King</option>
+                <option value="Suite" >Suite</option>
+                <option value="Presidential Suite" >Presidential Suite</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Lantai</label>
+              <input name="lantai" type="number" placeholder="cth. 3"/>
+            </div>
+            <div class="form-group">
+              <label>Harga per Malam (Rp)</label>
+              <input name="harga" type="number" placeholder="cth. 800000"/>
+            </div>
+            <div class="form-group">
+              <label>Kapasitas Tamu</label>
+              <input name="kapasitas" type="number" placeholder="cth. 2"/>
+            </div>
+            <div class="form-group">
+              <label>Status Kamar</label>
+              <select name="status">
+                <option value="1">Tersedia</option>
+                <option value="0">Terisi</option>
+                <option value="2">Maintenance</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-footer">
+            <button class="btn btn-primary">SIMPAN KAMAR</button>
+            <button class="btn btn-ghost">BATAL</button>
+          </div>
         </div>
-        <div class="form-body">
-          <div class="form-group">
-            <label>Nomor Kamar</label>
-            <input type="text" placeholder="cth. 301"/>
-          </div>
-          <div class="form-group">
-            <label>Tipe Kamar</label>
-            <select>
-              <option>Standard Twin</option>
-              <option>Standard Queen</option>
-              <option>Deluxe King</option>
-              <option>Suite</option>
-              <option>Presidential Suite</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Lantai</label>
-            <input type="number" placeholder="cth. 3"/>
-          </div>
-          <div class="form-group">
-            <label>Harga per Malam (Rp)</label>
-            <input type="number" placeholder="cth. 800000"/>
-          </div>
-          <div class="form-group">
-            <label>Kapasitas Tamu</label>
-            <input type="number" placeholder="cth. 2"/>
-          </div>
-          <div class="form-group">
-            <label>Status Kamar</label>
-            <select>
-              <option>Tersedia</option>
-              <option>Terisi</option>
-              <option>Maintenance</option>
-            </select>
-          </div>
-          <div class="form-group full">
-            <label>Fasilitas / Keterangan</label>
-            <textarea placeholder="cth. AC, WiFi, TV 42in, bathtub, pemandangan laut..."></textarea>
-          </div>
-        </div>
-        <div class="form-footer">
-          <button class="btn btn-primary">SIMPAN KAMAR</button>
-          <button class="btn btn-ghost">BATAL</button>
-        </div>
-      </div>
+      </form>
     </section>
 
     <!-- KARYAWAN -->
