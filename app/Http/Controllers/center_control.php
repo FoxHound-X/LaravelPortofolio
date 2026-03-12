@@ -7,6 +7,7 @@ use App\Models\user_data;
 use App\Models\DataPegawai;
 use Illuminate\Http\Request;
 use App\Imports\KamarImport;
+use App\Imports\PegawaiImport;
 
 class center_control extends Controller
 {
@@ -52,6 +53,11 @@ class center_control extends Controller
     public function import(Request $request){
         Excel::import(new KamarImport, $request->file('file'));
         return redirect('/admin')->with('success', 'Data berhasil diimport');
+    }
+
+    public function importpegawai(Request $request){
+        Excel::import(new PegawaiImport, $request->file('file'));
+        return redirect('/admin')->with('success', 'data berhasil diimport');
     }
 
     public function pegawai(){

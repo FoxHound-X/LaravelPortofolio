@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_pegawai');
             $table->string('posisi');
-            $table->dateTime('shift');
-            $table->integer('nomer_hp');
+            $table->string('shift');
+            $table->string('nomer_hp');
             $table->string('status');
             $table->timestamps();
         });

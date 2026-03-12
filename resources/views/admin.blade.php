@@ -347,7 +347,8 @@
     <div class="popup-content">
         <h3>Upload File</h3>
 
-        <form action="upload.php" method="post" enctype="multipart/form-data">
+        <form action="{{ route('import.datapegawai') }}" method="post" enctype="multipart/form-data">
+          @csrf
             <input type="file" name="file">
 
             <button type="submit">Submit</button>

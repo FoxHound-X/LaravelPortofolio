@@ -10,6 +10,7 @@ Route::get('/', [center_control::class, 'index']);
 Route::post('/admin', [UserControl::class, 'login'])->name('login.sys');
 Route::post('/tambah', [center_control::class, 'tambah_kamar'])->name('tambah.kamar');
 Route::post('/import', [center_control::class, 'import'])->name('import.datakamar');
+Route::post('/importpegawai', [center_control::class, 'importpegawai'])->name('import.datapegawai');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [center_control::class, 'admin']);
