@@ -20,7 +20,9 @@ class center_control extends Controller
         $datapegawai = DataPegawai::all();
         $jmlhkamar = DataKamar::count();
         $KamarAktif = DataKamar::where('status', 1)->count();
-        return view('admin', compact('datakamar', 'jmlhkamar', 'KamarAktif', 'datapegawai'));
+        $KamarMaintenance = DataKamar::where('status', 2)->count();
+        $jumlahpegawai = DataPegawai::count();
+        return view('admin', compact('datakamar', 'jmlhkamar', 'KamarAktif', 'datapegawai', 'jumlahpegawai', 'KamarMaintenance'));
     }
 
     public function delete($id){

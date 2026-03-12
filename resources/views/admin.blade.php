@@ -79,7 +79,7 @@
         <div class="stat-box">
           <div class="stat-label">Total Kamar</div>
           <div class="stat-num">{{ $jmlhkamar }}</div>
-          <div class="stat-sub">4 sedang maintenance</div>
+          <div class="stat-sub">{{ $KamarMaintenance }} sedang maintenance</div>
         </div>
         <div class="stat-box">
           <div class="stat-label">Kamar Aktif</div>
@@ -88,7 +88,7 @@
         </div>
         <div class="stat-box">
           <div class="stat-label">Karyawan</div>
-          <div class="stat-num">12</div>
+          <div class="stat-num">{{ $jumlahpegawai }}</div>
           <div class="stat-sub">3 shift aktif sekarang</div>
         </div>
       </div>
