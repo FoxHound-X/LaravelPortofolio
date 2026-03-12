@@ -17,7 +17,7 @@ class UserControl extends Controller
                 return redirect()->intended('/admin');
                 // return view('admin');
             } else {
-                return redirect('login');
+                return redirect('/');
             }
         }
         return back()->with('error','email atau password salah');

@@ -54,14 +54,16 @@
 </aside>
 
 <main id="main">
-  <div class="topbar">
-    <div class="page-title" id="pageTitle">Dashboard</div>
-    <div class="topbar-right">
-      <div class="topbar-date">2026.03.08 — SUN</div>
-      <div class="avatar">AD</div>
-    </div>
-  </div>
+    <div class="topbar">
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
 
+      <div class="page-title" id="pageTitle">Dashboard</div>
+
+      <div class="topbar-right">
+        <div class="topbar-date">2026.03.08 — SUN</div>
+        <div class="avatar">AD</div>
+      </div>
+    </div>
   <div class="content">
 
     <!-- DASHBOARD -->
@@ -283,6 +285,11 @@
           </div>
         </div>
       </form>
+      <form action="{{ route('import.datakamar') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="file">
+        <button type="submit" >Upload Excel</button>
+      </form>
     </section>
 
     <!-- KARYAWAN -->
@@ -290,7 +297,7 @@
       <div class="card">
         <div class="card-header">
           <div class="card-title">Daftar Karyawan</div>
-          <button class="btn btn-primary">+ Tambah Karyawan</button>
+            <button class="btn btn-primary" onclick="openPopup()">Upload Data Karyawan</button>
         </div>
         <table>
           <thead>
@@ -300,32 +307,102 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="mono" style="color:var(--c3);">#EMP-001</td>
-              <td>
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div style="width:28px;height:28px;background:var(--c2);border:2px solid var(--c3);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--c3);">SL</div>
-                  Siti Lestari
-                </div>
-              </td>
-              <td>Front Desk</td>
-              <td class="mono">07:00 – 15:00</td>
-              <td class="mono">0812-3456-7890</td>
-              <td><span class="pill pill-active">AKTIF</span></td>
-              <td>
-                <button class="tbl-btn">EDIT</button>
-                <button class="tbl-btn del">HAPUS</button>
-              </td>
-            </tr>
+            @if ($datapegawai -> isEmpty())
+              <tr>
+                <td>Data Seang Kosong</td>
+              </tr>
+            @else
+              @foreach ($datapegawai as $item)
+              @csrf
+              <tr>
+                <td class="mono" style="color:var(--c3);">{{ $item->id }}</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:28px;height:28px;background:var(--c2);border:2px solid var(--c3);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--c3);">SL</div>
+                    {{ $item->nama_pegawai }}
+                  </div>
+                </td>
+                <td>{{ $item->posisi }}</td>
+                <td class="mono">{{ $item->shift }}</td>
+                <td class="mono">{{ $item->nomer_hp }}</td>
+                <td><span class="pill pill-active">{{ $item->status }}</span></td>
+                <td>
+                  <button class="tbl-btn">EDIT</button>
+                  <form action="/pegawai/{{ $item->id }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                      <button type="submit" class="tbl-btn del">HAPUS</button>
+                  </form>
+                </td>
+              </tr>
+              @endforeach
+            @endif
           </tbody>
         </table>
       </div>
     </section>
 
-  </div>
+
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <h3>Upload File</h3>
+
+        <form action="upload.php" method="post" enctype="multipart/form-data">
+            <input type="file" name="file">
+
+            <button type="submit">Submit</button>
+            <button type="button" onclick="closePopup()">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function openPopup(){
+    document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup(){
+    document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</div>
 </main>
 
   <style>
+
+    body{
+    font-family: Arial;
+}
+
+button{
+    padding:10px 20px;
+    cursor:pointer;
+}
+
+.popup{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+
+    justify-content:center;
+    align-items:center;
+}
+
+.popup-content{
+    background:white;
+    padding:30px;
+    border-radius:8px;
+    width:300px;
+}
+
+.btn-group{
+    margin-top:15px;
+}
 :root{
 --bg:#f4f6f9;
 --sidebar:#ffffff;
@@ -357,7 +434,7 @@ background:var(--bg);
 color:var(--text);
 display:flex;
 min-height:100vh;
-overflow:hidden;
+/* overflow:hidden; */
 }
 
 /* SIDEBAR */
@@ -742,9 +819,112 @@ padding:0 20px 20px;
 display:flex;
 gap:10px;
 }
+
+/* ================= MOBILE ================= */
+
+.menu-btn{
+display:none;
+background:none;
+border:none;
+font-size:20px;
+cursor:pointer;
+}
+
+/* TABLE SCROLL MOBILE */
+
+table{
+min-width:700px;
+}
+
+.card{
+overflow-x:auto;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:900px){
+
+/* SIDEBAR */
+
+#sidebar{
+position:fixed;
+left:-260px;
+top:0;
+height:100%;
+z-index:1000;
+transition:0.3s;
+}
+
+#sidebar.active{
+left:0;
+}
+
+/* MENU BUTTON */
+
+.menu-btn{
+display:block;
+}
+
+/* MAIN */
+
+#main{
+width:100%;
+}
+
+/* STATS */
+
+.stats-row{
+grid-template-columns:1fr;
+}
+
+/* FORM */
+
+.form-body{
+grid-template-columns:1fr;
+}
+
+/* TOPBAR */
+
+.topbar{
+padding:0 15px;
+}
+
+/* CONTENT */
+
+.content{
+padding:15px;
+}
+
+}
+
+/* SMALL PHONE */
+
+@media (max-width:500px){
+
+.page-title{
+font-size:14px;
+}
+
+.avatar{
+width:28px;
+height:28px;
+font-size:10px;
+}
+
+.topbar-date{
+display:none;
+}
+
+}
+
   </style>
 
 <script>
+
+function toggleSidebar(){
+  document.getElementById("sidebar").classList.toggle("active");
+}
+
   const titles = {
     'dashboard':     'Dashboard',
     'notifikasi':    'Notifikasi',
