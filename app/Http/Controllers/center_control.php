@@ -35,9 +35,15 @@ class center_control extends Controller
         return redirect()->back();
     }
 
-    public function delete_datapegawai($id){
-        $pegawai = DataPegawai::find($id);
+    public function delete_datapegawai(Request $request, $id){
+        $pegawai = DataPegawai::findOrFail($id);
+        Notification::create([
+            'title'=>'Hapus Data Pegawai',
+            'deskripsi'=>'Data pegawai dengan nama ' .$pegawai->nama_pegawai. ' telah di hapus',
+            'type'=>'Deleted'
+        ]);
         $pegawai->delete();
+
 
         return redirect()->back();
     }

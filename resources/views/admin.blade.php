@@ -112,7 +112,7 @@
                 <td class="mono" style="color:var(--muted);">{{ $ntf->created_at }}</td>
                 <td>{{ $ntf->title }}</td>
                 <td>{{ $ntf->deskripsi }}</td>
-                <td><span class="pill pill-confirmed">CONFIRMED</span></td>
+                <td><span class="pill pill-confirmed">{{ $ntf->type }}</span></td>
               </tr>
               @endforeach
               @endif
