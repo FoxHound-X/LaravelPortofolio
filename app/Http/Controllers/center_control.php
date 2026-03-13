@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Notification;
 use App\Models\DataKamar;
 use App\Models\user_data;
 use App\Models\DataPegawai;
@@ -19,10 +20,12 @@ class center_control extends Controller
         $datakamar = DataKamar::all();
         $datapegawai = DataPegawai::all();
         $jmlhkamar = DataKamar::count();
+        $notif = Notification::latest()->limit(10)->get();
+        $totalnotif = Notification::count();
         $KamarAktif = DataKamar::where('status', 1)->count();
         $KamarMaintenance = DataKamar::where('status', 2)->count();
         $jumlahpegawai = DataPegawai::count();
-        return view('admin', compact('datakamar', 'jmlhkamar', 'KamarAktif', 'datapegawai', 'jumlahpegawai', 'KamarMaintenance'));
+        return view('admin', compact('datakamar', 'jmlhkamar', 'KamarAktif', 'datapegawai', 'jumlahpegawai', 'KamarMaintenance', 'notif', 'totalnotif'));
     }
 
     public function delete($id){
@@ -49,7 +52,14 @@ class center_control extends Controller
             'status' => $request->status,
             'harga' => $request->harga,
         ]);
-        return redirect('/admin');
+        
+        Notification::create([
+            'title' => 'Tambah Kamar',
+            'deskripsi' => ' Kamar Dengan Nomor '.$request->no_kamar.' Telah Berhasil Di Tambahkan',
+            'type' => 'create'
+        ]);
+            
+            return redirect('/admin');
     }
 
     public function import(Request $request){

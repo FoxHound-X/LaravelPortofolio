@@ -26,7 +26,7 @@
     </div>
     <div class="nav-item" data-target="notifikasi">
       <span class="nav-icon">◎</span> Notifikasi
-      <span class="nav-badge">3</span>
+      <span class="nav-badge">{{ $totalnotif }}</span>
     </div>
     <div class="nav-divider"></div>
     <div class="nav-group">Kamar</div>
@@ -104,58 +104,52 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="mono" style="color:var(--muted);">09:42</td>
-              <td>Pesanan baru — Kamar 201</td>
-              <td>Budi Santoso</td>
-              <td><span class="pill pill-confirmed">CONFIRMED</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+              @if ($notif->isEmpty())
+                
+              @else
+              @foreach ($notif as $ntf)
+              <tr>
+                <td class="mono" style="color:var(--muted);">{{ $ntf->created_at }}</td>
+                <td>{{ $ntf->title }}</td>
+                <td>{{ $ntf->deskripsi }}</td>
+                <td><span class="pill pill-confirmed">CONFIRMED</span></td>
+              </tr>
+              @endforeach
+              @endif
+            </tbody>
+          </table>
+        </div>
     </section>
 
     <!-- NOTIFIKASI -->
+    @if($notif->isEmpty())
+    <div style="padding:20px;color:gray;">
+        Tidak ada notifikasi
+    </div>
+    @else
+    @foreach ($notif as $nf)
+      
     <section class="section" id="notifikasi">
       <div class="card">
         <div class="card-header">
-          <div class="card-title">Notifikasi</div>
+          <div class="card-title">Notifikasi Sistem</div>
           <button class="btn btn-ghost">Tandai Semua Dibaca</button>
         </div>
-        <div class="notif-row">
-          <div class="notif-bar"></div>
-          <div>
-            <div class="notif-title">Pesanan baru diterima</div>
-            <div class="notif-desc">Tamu Budi Santoso memesan Kamar 201 — Deluxe King.</div>
-            <div class="notif-time">08:37 — 5 menit lalu</div>
+        <div class="notif-container">
+          <div class="notif-item">
+            <div class="notif-icon success">✓</div>
+            <div class="notif-content">
+              <div class="notif-title">{{ $nf->title }}</div>
+              <div class="notif-desc">{{ $nf->deskripsi }}</div>
+              <div class="notif-time">{{ $nf->created_at }}</div>
+            </div>
           </div>
-        </div>
-        <div class="notif-row">
-          <div class="notif-bar"></div>
-          <div>
-            <div class="notif-title">2 tamu dijadwalkan check-in</div>
-            <div class="notif-desc">Check-in pukul 14:00 WIB. Siapkan kamar 101 dan 204.</div>
-            <div class="notif-time">07:00 — 1 jam lalu</div>
-          </div>
-        </div>
-        <div class="notif-row">
-          <div class="notif-bar"></div>
-          <div>
-            <div class="notif-title">Kamar 305 — Maintenance selesai</div>
-            <div class="notif-desc">Suite Room sudah siap digunakan kembali.</div>
-            <div class="notif-time">06:15 — 3 jam lalu</div>
-          </div>
-        </div>
-        <div class="notif-row">
-          <div class="notif-bar read"></div>
-          <div>
-            <div class="notif-title" style="color:var(--muted);">Laporan bulanan Februari tersedia</div>
-            <div class="notif-desc" style="color:var(--muted);">Laporan telah dibuat dan siap diunduh.</div>
-            <div class="notif-time">2026.03.06 — 2 hari lalu</div>
-          </div>
+
         </div>
       </div>
     </section>
+    @endforeach
+    @endif
 
     <!-- DAFTAR KAMAR -->
     <section class="section" id="daftar-kamar">
@@ -371,6 +365,72 @@ function closePopup(){
 </main>
 
   <style>
+
+    /* NOTIFICATION */
+
+.notif-container{
+display:flex;
+flex-direction:column;
+}
+
+.notif-item{
+display:flex;
+gap:15px;
+padding:16px 20px;
+border-bottom:1px solid var(--border);
+transition:all .15s;
+}
+
+.notif-item:hover{
+background:#f9fafb;
+}
+
+.notif-icon{
+width:36px;
+height:36px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:14px;
+font-weight:600;
+}
+
+.notif-icon.success{
+background:#eafaf1;
+color:var(--green);
+}
+
+.notif-icon.info{
+background:#e8f4fd;
+color:var(--primary);
+}
+
+.notif-icon.warning{
+background:#fff4e5;
+color:var(--amber);
+}
+
+.notif-content{
+flex:1;
+}
+
+.notif-title{
+font-size:14px;
+font-weight:600;
+margin-bottom:3px;
+}
+
+.notif-desc{
+font-size:13px;
+color:var(--muted);
+}
+
+.notif-time{
+font-size:11px;
+color:var(--muted);
+margin-top:4px;
+}
 
     body{
     font-family: Arial;
