@@ -13,11 +13,11 @@ class UserControl extends Controller
         if(Auth::attempt($data)){
             $request->session()->regenerate();
 
-            if(Auth::user()->role == 'admin'){
+            if(in_array(Auth::user()->role, ['admin', 'front'])){
                 return redirect()->intended('/admin');
                 // return view('admin');
             } else {
-                return redirect('/');
+                return redirect('/login');
             }
         }
         return back()->with('error','email atau password salah');

@@ -36,9 +36,11 @@
     <div class="nav-item" data-target="pesanan-kamar">
       <span class="nav-icon">≡</span> Daftar Pesanan
     </div>
+    @if (Auth::user()->role == 'admin')
     <div class="nav-item" data-target="tambah-kamar">
       <span class="nav-icon">+</span> Tambah Kamar
     </div>
+    @endif
     <div class="nav-divider"></div>
     <div class="nav-group">SDM</div>
     <div class="nav-item" data-target="karyawan">
@@ -156,7 +158,10 @@
       <div class="card">
         <div class="card-header">
           <div class="card-title">Daftar Kamar</div>
+          @if (Auth::user()->role == 'admin')
+            
           <button class="btn btn-primary" onclick="switchTab('tambah-kamar')">+ Tambah Kamar</button>
+          @endif
         </div>
         <table>
           <thead>
@@ -180,12 +185,15 @@
                   <td class="mono">Rp. {{ $itemkamar->harga }}</td>
                   <td><span class="pill pill-available">{{ $itemkamar->status }}</span></td>
                   <td>
+                    @if (Auth::user()->role == 'admin')
                     <button class="tbl-btn">EDIT</button>
                     <form action="/kamar/{{ $itemkamar->id }}" method="POST">
                       @csrf
                       @method('DELETE')
                         <button type="submit" class="tbl-btn del">HAPUS</button>
-                    </form>
+                    @else
+                        <button class="tbl-btn del">Anda Bukan Admin</button>
+                    @endif
                   </td>
                 </tr>
                 @endforeach
