@@ -9,6 +9,7 @@ use App\Models\DataPegawai;
 use Illuminate\Http\Request;
 use App\Imports\KamarImport;
 use App\Imports\PegawaiImport;
+use Carbon\Carbon;
 
 class center_control extends Controller
 {
@@ -26,6 +27,10 @@ class center_control extends Controller
         $KamarMaintenance = DataKamar::where('status', 2)->count();
         $jumlahpegawai = DataPegawai::count();
         return view('admin', compact('datakamar', 'jmlhkamar', 'KamarAktif', 'datapegawai', 'jumlahpegawai', 'KamarMaintenance', 'notif', 'totalnotif'));
+    }
+
+    public function time(){
+        return Carbon::now()->format('H:i:s');
     }
 
     public function delete($id){

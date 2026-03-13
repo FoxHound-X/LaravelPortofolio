@@ -60,8 +60,8 @@
       <div class="page-title" id="pageTitle">Dashboard</div>
 
       <div class="topbar-right">
-        <div class="topbar-date">2026.03.08 — SUN</div>
-        <div class="avatar">AD</div>
+        <div class="topbar-date" id="live-date"></div>
+        <div class="avatar">{{ strtoupper(substr(Auth::user()->name,0,2)) }}</div>
       </div>
     </div>
   <div class="content">

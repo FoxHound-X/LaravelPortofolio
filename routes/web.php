@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 Route::get('/', [center_control::class, 'index']);
 
 Route::post('/admin', [UserControl::class, 'login'])->name('login.sys');
+Route::post('/time', [UserControl::class, 'time'])->name('time.sys');
 Route::post('/tambah', [center_control::class, 'tambah_kamar'])->name('tambah.kamar');
 Route::post('/import', [center_control::class, 'import'])->name('import.datakamar');
 Route::post('/importpegawai', [center_control::class, 'importpegawai'])->name('import.datapegawai');
