@@ -22,8 +22,8 @@ class center_control extends Controller
         $datakamar = DataKamar::all();
         $datapegawai = DataPegawai::all();
         $jmlhkamar = DataKamar::count();
-        $notif = Notification::latest()->limit(10)->get();
-        $totalnotif = Notification::count();
+        $notif = Notification::latest()->get();
+        $totalnotif = Notification::where('status', 1)->count();
         $KamarAktif = DataKamar::where('status', 1)->count();
         $KamarMaintenance = DataKamar::where('status', 2)->count();
         $jumlahpegawai = DataPegawai::count();
@@ -46,7 +46,8 @@ class center_control extends Controller
         Notification::create([
             'title'=>'Hapus Data Pegawai',
             'deskripsi'=>'Data pegawai dengan nama ' .$pegawai->nama_pegawai. ' telah di hapus',
-            'type'=>'Deleted'
+            'type'=>'Deleted',
+            'status'=> 1,
         ]);
         $pegawai->delete();
 
@@ -68,7 +69,8 @@ class center_control extends Controller
         Notification::create([
             'title' => 'Tambah Kamar',
             'deskripsi' => ' Kamar Dengan Nomor '.$request->no_kamar.' Telah Berhasil Di Tambahkan',
-            'type' => 'create'
+            'type' => 'create',
+            'status' => 1,
         ]);
             
             return redirect('/admin');

@@ -48,10 +48,16 @@
       <span class="nav-icon">◉</span> Daftar Karyawan
     </div>
     <div class="nav-divider"></div>
-    <div class="nav-group">Adminitrator Menu</div>
+    <div class="nav-group">Adminitrator Menu</div>\
+    @if (Auth::user()->role == 'admin')
     <div class="nav-item-admin" data-target="tambah-user">
       <span class="bi bi-person"></span> Tambah User
     </div>
+    @else
+    <div class="nav-item-admin">
+      <span class="bi bi-person"></span> Tambah User
+    </div>
+    @endif
   </nav>
   <div class="sidebar-footer">
     <div class="nav-item logout">
@@ -120,7 +126,13 @@
                 <td class="mono" style="color:var(--muted);">{{ $ntf->created_at }}</td>
                 <td>{{ $ntf->title }}</td>
                 <td>{{ $ntf->deskripsi }}</td>
-                <td><span class="pill pill-confirmed">{{ $ntf->type }}</span></td>
+                <td>
+                  @if ($ntf->status == 1)
+                  <span class="pill pill-notconfirmed">Belum Di Baca</span>
+                  @elseif ($ntf->status == 2)
+                    <span class="pill pill-confirmed">Sudah Di Baca</span>
+                  @endif
+                </td>
               </tr>
               @endforeach
               @endif
@@ -141,7 +153,10 @@
       <div class="card">
         <div class="card-header">
           <div class="card-title">Notifikasi Sistem</div>
-          <button class="btn btn-ghost">Tandai Semua Dibaca</button>
+          <form action="{{ route('notifi.readall') }}" method="POST">
+            @csrf
+            <button class="btn btn-ghost">Tandai Semua Dibaca</button>
+          </form>
         </div>
         <div class="notif-container">
           <div class="notif-item">
@@ -889,6 +904,10 @@ color:var(--green);
 .pill-confirmed{
 background:#eafaf1;
 color:var(--green);
+}
+.pill-notconfirmed{
+background:#eafaf1;
+color:var(--red);
 }
 
 .pill-active{

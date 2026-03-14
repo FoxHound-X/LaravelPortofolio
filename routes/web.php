@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\center_control;
 use App\Http\Controllers\UserControl;
+use App\Http\Controllers\notificationsys;
 use Maatwebsite\Excel\Facades\Excel;
 
 Route::get('/', [center_control::class, 'index']);
@@ -12,6 +13,7 @@ Route::post('/time', [UserControl::class, 'time'])->name('time.sys');
 Route::post('/tambah', [center_control::class, 'tambah_kamar'])->name('tambah.kamar');
 Route::post('/import', [center_control::class, 'import'])->name('import.datakamar');
 Route::post('/importpegawai', [center_control::class, 'importpegawai'])->name('import.datapegawai');
+Route::post('/readall', [notificationsys::class, 'ReadAll'])->name('notifi.readall');
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/tambahuser', [center_control::class, 'tambah_user'])->name('user.tambah');
