@@ -14,6 +14,7 @@ Route::post('/import', [center_control::class, 'import'])->name('import.datakama
 Route::post('/importpegawai', [center_control::class, 'importpegawai'])->name('import.datapegawai');
 
 Route::middleware(['auth'])->group(function () {
+    Route::post('/tambahuser', [center_control::class, 'tambah_user'])->name('user.tambah');
     Route::get('/admin', [center_control::class, 'admin']);
     Route::delete('/kamar/{id}', [center_control::class, 'delete']);
     Route::delete('/pegawai/{id}', [center_control::class, 'delete_datapegawai']);

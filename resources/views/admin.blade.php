@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Azure Hotel — Admin Panel</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 </head>
 <body>
@@ -45,6 +46,11 @@
     <div class="nav-group">SDM</div>
     <div class="nav-item" data-target="karyawan">
       <span class="nav-icon">◉</span> Daftar Karyawan
+    </div>
+    <div class="nav-divider"></div>
+    <div class="nav-group">Adminitrator Menu</div>
+    <div class="nav-item-admin" data-target="tambah-user">
+      <span class="bi bi-person"></span> Tambah User
     </div>
   </nav>
   <div class="sidebar-footer">
@@ -192,7 +198,7 @@
                       @method('DELETE')
                         <button type="submit" class="tbl-btn del">HAPUS</button>
                     @else
-                        <button class="tbl-btn del">Anda Bukan Admin</button>
+                        <button class="tbl-btn del">Anda Bukan Adminclear</button>
                     @endif
                   </td>
                 </tr>
@@ -291,6 +297,43 @@
         @csrf
         <input type="file" name="file">
         <button type="submit" >Upload Excel</button>
+      </form>
+    </section>
+
+        <!-- TAMBAH User -->
+    <section class="section" id="tambah-user">
+      <form action="{{ route('user.tambah') }}" method="POST">
+        @csrf
+          <div class="card">
+          <div class="card-header">
+            <div class="card-title">Tambah Kamar Baru</div>
+          </div>
+          <div class="form-body">
+            <div class="form-group">
+              <label>User Name</label>
+              <input name="name" type="text" placeholder="Masukkan User"/>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input name="email" type="email" placeholder="Masukkan Email"/>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input name="password" type="password" placeholder="Masukkan User"/>
+            </div>
+            <div class="form-group">
+              <label>Role</label>
+              <select name="role">
+                <option value="admin">Admin</option>
+                <option value="front">Front</option>
+                <option value="visitor">Visitor</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-footer">
+            <button class="btn btn-primary">SIMPAN</button>
+          </div>
+        </div>
       </form>
     </section>
 
@@ -557,9 +600,23 @@ color:var(--text);
 transition:all .15s;
 border-left:3px solid transparent;
 }
+.nav-item-admin{
+display:flex;
+align-items:center;
+gap:10px;
+padding:12px 20px;
+cursor:pointer;
+font-size:14px;
+color:var(--text);
+transition:all .15s;
+border-left:3px solid transparent;
+}
 
 .nav-item:hover{
 background:#f1f5f9;
+}
+.nav-item-admin:hover{
+background:#dc2827;
 }
 
 .nav-item.active{
@@ -1011,7 +1068,8 @@ function toggleSidebar(){
     if (item) item.classList.add('active');
     document.getElementById('pageTitle').textContent = titles[target] || target;
   }
-  document.querySelectorAll('.nav-item[data-target]').forEach(item => {
+  document.querySelectorAll('.nav-item[data-target], .nav-item-admin[data-target]')
+    .forEach(item => {
     item.addEventListener('click', () => switchTab(item.dataset.target));
   });
 </script>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Notification;
 use App\Models\DataKamar;
@@ -71,6 +72,17 @@ class center_control extends Controller
         ]);
             
             return redirect('/admin');
+    }
+
+    public function tambah_user(Request $request){
+        user_data::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+        ]);
+
+        return redirect('/admin');
     }
 
     public function import(Request $request){

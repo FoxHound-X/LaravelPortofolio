@@ -15,4 +15,5 @@ class user_data extends Authenticatable
         'password',
         'role',
     ];
+    public $timestamps = false;
 }

@@ -27,4 +27,5 @@ class UserControl extends Controller
         Auth::logout();
         return view('login');
     }
+
 }
