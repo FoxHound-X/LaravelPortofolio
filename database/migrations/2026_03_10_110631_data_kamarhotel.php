@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('lantai');
             $table->string('kapasitas');
             $table->string('harga');
-            $table->boolean('status');
+            $table->integer('status')->comment('0:Terisi, 1:Tersedia, 2:Maintenance');
             $table->timestamps();
         });
     }

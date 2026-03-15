@@ -30,9 +30,6 @@ class center_control extends Controller
         return view('admin', compact('datakamar', 'jmlhkamar', 'KamarAktif', 'datapegawai', 'jumlahpegawai', 'KamarMaintenance', 'notif', 'totalnotif'));
     }
 
-    public function time(){
-        return Carbon::now()->format('H:i:s');
-    }
 
     public function delete($id){
         $kamar = DataKamar::find($id);
@@ -62,7 +59,11 @@ class center_control extends Controller
             'lantai' => 'required|string',
             'kapasitas' => 'required|string',
             'harga' => 'required|numeric|min:0',
-            'status' => 'required|string',
+            'status' => 'required|integer|in:0,1,2',
+        ], [
+            'no_kamar.unique' => 'Nomor kamar sudah ada!',
+            'no_kamar.required' => 'Nomor kamar harus diisi!',
+            'status.in' => 'Status tidak valid!',
         ]);
 
         DataKamar::create([
@@ -81,7 +82,7 @@ class center_control extends Controller
             'status' => 1,
         ]);
             
-            return redirect('/admin');
+            return redirect('/adminutama');
     }
 
     public function tambah_user(Request $request){

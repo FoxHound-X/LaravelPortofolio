@@ -12,13 +12,18 @@ class PegawaiImport implements ToModel
     }
 
     public function model(array $row){
+        // Skip jika nomer_hp kosong
+        if (empty($row[3])) {
+            return null;
+        }
+
         return DataPegawai::updateOrCreate(
             ['nomer_hp' => $row[3]],
             [
-                'nama_pegawai' => $row[0],
-                'posisi' => $row[1],
-                'shift' => $row[2],
-                'status' => $row[4],
+                'nama_pegawai' => $row[0] ?? '',
+                'posisi' => $row[1] ?? '',
+                'shift' => $row[2] ?? '',
+                'status' => $row[4] ?? '',
             ]
         );
     }

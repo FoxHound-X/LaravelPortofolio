@@ -14,7 +14,7 @@ class UserControl extends Controller
             $request->session()->regenerate();
 
             if(in_array(Auth::user()->role, ['admin', 'front'])){
-                return redirect()->intended('/admin');
+                return redirect()->intended('/adminutama');
                 // return view('admin');
             } else {
                 return redirect('/login');

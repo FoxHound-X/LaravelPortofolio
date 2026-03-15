@@ -215,6 +215,7 @@
                     @else
                         <button class="tbl-btn del">Anda Bukan Adminclear</button>
                     @endif
+                    </form>
                   </td>
                 </tr>
                 @endforeach
@@ -260,6 +261,15 @@
 
     <!-- TAMBAH KAMAR -->
     <section class="section" id="tambah-kamar">
+      @if ($errors->any())
+        <div style="color: red; margin-bottom: 10px;">
+          <ul>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
       <form action="/tambah" method="POST">
         @csrf
           <div class="card">
@@ -303,7 +313,7 @@
             </div>
           </div>
           <div class="form-footer">
-            <button class="btn btn-primary">SIMPAN KAMAR</button>
+            <button class="btn btn-primary" type="submit" onclick="this.disabled=true; this.form.submit();">SIMPAN KAMAR</button>
             <button class="btn btn-ghost">BATAL</button>
           </div>
         </div>
