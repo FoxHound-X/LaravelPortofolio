@@ -20,12 +20,12 @@
             @csrf
             <div class="input-group">
                 <label>Email</label>
-                <input name="email" type="email" placeholder="Masukkan email">
+                <input name="email" type="email" placeholder="Masukkan email" autocomplete="off">
             </div>
 
             <div class="input-group">
                 <label>Password</label>
-                <input name="password" type="password" placeholder="Masukkan password">
+                <input name="password" type="password" placeholder="Masukkan password" autocomplete="new-password">
             </div>
 
             <button class="login-btn">Login</button>

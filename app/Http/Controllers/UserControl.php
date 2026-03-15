@@ -17,7 +17,7 @@ class UserControl extends Controller
                 return redirect()->intended('/adminutama');
                 // return view('admin');
             } else {
-                return redirect('/login');
+                return redirect('/');
             }
         }
         return back()->with('error','email atau password salah');
@@ -25,7 +25,9 @@ class UserControl extends Controller
 
     public function logout(){
         Auth::logout();
-        return view('login');
+        request()->session()->invalidate();
+        request()->session()->regenerate();
+        return redirect()->route('login');
     }
 
 }
