@@ -14,7 +14,7 @@ return new class extends Migration
 
         Schema::create('data_kamar', function (Blueprint $table) {
             $table->id();
-            $table->string('no_kamar');
+            $table->string('no_kamar')->unique();
             $table->string('tipe_kamar');
             $table->string('lantai');
             $table->string('kapasitas');

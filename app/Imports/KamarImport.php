@@ -13,13 +13,15 @@ class KamarImport implements ToModel
     }
 
     public function model(array $row){
-        return new DataKamar([
-            'no_kamar' => $row[0],
-            'tipe_kamar' => $row[1],
-            'lantai' => $row[2],
-            'kapasitas' => $row[3],
-            'harga' => $row[4],
-            'status' => $row[5],
-        ]);
+        return DataKamar::updateOrCreate(
+            ['no_kamar' => $row[0]], 
+            [
+                'tipe_kamar' => $row[1],
+                'lantai' => $row[2],
+                'kapasitas' => $row[3],
+                'harga' => $row[4],
+                'status' => $row[5],
+            ]
+        );
     }
 }

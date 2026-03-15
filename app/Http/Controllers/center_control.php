@@ -56,6 +56,14 @@ class center_control extends Controller
     }
 
     public function tambah_kamar(Request $request){
+        $request->validate([
+            'no_kamar' => 'required|string|unique:data_kamar,no_kamar',
+            'tipe_kamar' => 'required|string',
+            'lantai' => 'required|string',
+            'kapasitas' => 'required|string',
+            'harga' => 'required|numeric|min:0',
+            'status' => 'required|boolean',
+        ]);
 
         DataKamar::create([
             'no_kamar' => $request->no_kamar,
@@ -77,6 +85,13 @@ class center_control extends Controller
     }
 
     public function tambah_user(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:user_datas,email',
+            'password' => 'required|string|min:8',
+            'role' => 'required|string|in:admin,front', // Sesuaikan role yang ada
+        ]);
+
         user_data::create([
             'name' => $request->name,
             'email' => $request->email,

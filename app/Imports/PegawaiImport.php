@@ -12,12 +12,14 @@ class PegawaiImport implements ToModel
     }
 
     public function model(array $row){
-        return new DataPegawai([
-            'nama_pegawai' => $row[0],
-            'posisi' => $row[1],
-            'shift' => $row[2],
-            'nomer_hp' => $row[3],
-            'status' => $row[4],
-        ]);
+        return DataPegawai::updateOrCreate(
+            ['nomer_hp' => $row[3]],
+            [
+                'nama_pegawai' => $row[0],
+                'posisi' => $row[1],
+                'shift' => $row[2],
+                'status' => $row[4],
+            ]
+        );
     }
 }
