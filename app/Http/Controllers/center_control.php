@@ -62,7 +62,7 @@ class center_control extends Controller
             'lantai' => 'required|string',
             'kapasitas' => 'required|string',
             'harga' => 'required|numeric|min:0',
-            'status' => 'required|boolean',
+            'status' => 'required|string',
         ]);
 
         DataKamar::create([
@@ -89,7 +89,7 @@ class center_control extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:user_datas,email',
             'password' => 'required|string|min:8',
-            'role' => 'required|string|in:admin,front', // Sesuaikan role yang ada
+            'role' => 'required|string', 
         ]);
 
         user_data::create([

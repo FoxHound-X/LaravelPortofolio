@@ -308,11 +308,11 @@
           </div>
         </div>
       </form>
-      <form action="{{ route('import.datakamar') }}" method="POST" enctype="multipart/form-data">
+      {{-- <form action="{{ route('import.datakamar') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="file" name="file">
         <button type="submit" >Upload Excel</button>
-      </form>
+      </form> --}}
     </section>
 
         <!-- TAMBAH User -->
