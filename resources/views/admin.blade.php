@@ -179,6 +179,11 @@
       <div class="card">
         <div class="card-header">
           <div class="card-title">Daftar Kamar</div>
+          <form name="search" action="{{ route('finddatakamar') }}" method="GET" class="form-inline">
+            <input name="tab" type="hidden" value="daftar-kamar">
+            <input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
           @if (Auth::user()->role == 'admin')
             
           <button class="btn btn-primary" onclick="switchTab('tambah-kamar')">+ Tambah Kamar</button>
@@ -435,6 +440,8 @@ function openPopup(){
 function closePopup(){
     document.getElementById("popup").style.display = "none";
 }
+
+
 </script>
 
 </div>
@@ -1101,6 +1108,10 @@ function toggleSidebar(){
     .forEach(item => {
     item.addEventListener('click', () => switchTab(item.dataset.target));
   });
+
+  @if(isset($tab))
+    switchTab("{{ $tab }}");
+@endif
 </script>
 </body>
 </html>

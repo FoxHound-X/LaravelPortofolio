@@ -30,6 +30,34 @@ class center_control extends Controller
         return view('admin', compact('datakamar', 'jmlhkamar', 'KamarAktif', 'datapegawai', 'jumlahpegawai', 'KamarMaintenance', 'notif', 'totalnotif'));
     }
 
+    public function findkamar(Request $request){
+        $search = $request->search;
+
+        $data = DataKamar::where('no_kamar', 'like', "%$search%")
+            ->orWhere('tipe_kamar', 'like', "%$search%")
+            ->get();
+        $datakamar = DataKamar::all();
+        $datapegawai = DataPegawai::all();
+        $jmlhkamar = DataKamar::count();
+        $notif = Notification::latest()->get();
+        $totalnotif = Notification::where('status', 1)->count();
+        $KamarAktif = DataKamar::where('status', 1)->count();
+        $KamarMaintenance = DataKamar::where('status', 2)->count();
+        $jumlahpegawai = DataPegawai::count();
+
+        return view('admin', [
+            'datakamar' => $data,
+            'tab' => 'daftar-kamar',
+            'datapegawai' => $datapegawai,
+            'jmlhkamar' => $jmlhkamar,
+            'notif' => $notif,
+            'totalnotif' => $totalnotif,
+            'KamarAktif' => $KamarAktif,
+            'KamarMaintenance' => $KamarMaintenance,
+            'jumlahpegawai' => $jumlahpegawai
+        ]);
+    }
+
 
     public function delete($id){
         $kamar = DataKamar::find($id);
