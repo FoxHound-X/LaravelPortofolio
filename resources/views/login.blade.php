@@ -20,7 +20,7 @@
             @csrf
             <div class="input-group">
                 <label>Email</label>
-                <input name="email" type="email" placeholder="Masukkan email" autocomplete="off">
+                <input name="email" type="text" placeholder="Masukkan email" autocomplete="off">
             </div>
 
             <div class="input-group">

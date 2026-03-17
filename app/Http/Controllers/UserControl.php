@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class UserControl extends Controller
 {
     public function login(Request $request){
-        $data = $request->only('email', 'password');
+        $data = $request->only( 'email', 'password');
 
         if(Auth::attempt($data)){
             $request->session()->regenerate();

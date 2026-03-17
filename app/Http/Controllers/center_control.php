@@ -28,35 +28,71 @@ class center_control extends Controller
         $KamarMaintenance = DataKamar::where('status', 2)->count();
         $jumlahpegawai = DataPegawai::count();
         return view('admin', compact('datakamar', 'jmlhkamar', 'KamarAktif', 'datapegawai', 'jumlahpegawai', 'KamarMaintenance', 'notif', 'totalnotif'));
-    }
-
-    public function findkamar(Request $request){
-        $search = $request->search;
-
-        $data = DataKamar::where('no_kamar', 'like', "%$search%")
+        }
+        
+        public function findkamar(Request $request){
+            $search = $request->search;
+            
+            $data = DataKamar::where('no_kamar', 'like', "%$search%")
             ->orWhere('tipe_kamar', 'like', "%$search%")
             ->get();
-        $datakamar = DataKamar::all();
-        $datapegawai = DataPegawai::all();
-        $jmlhkamar = DataKamar::count();
-        $notif = Notification::latest()->get();
-        $totalnotif = Notification::where('status', 1)->count();
-        $KamarAktif = DataKamar::where('status', 1)->count();
-        $KamarMaintenance = DataKamar::where('status', 2)->count();
-        $jumlahpegawai = DataPegawai::count();
-
-        return view('admin', [
-            'datakamar' => $data,
-            'tab' => 'daftar-kamar',
-            'datapegawai' => $datapegawai,
-            'jmlhkamar' => $jmlhkamar,
-            'notif' => $notif,
-            'totalnotif' => $totalnotif,
-            'KamarAktif' => $KamarAktif,
-            'KamarMaintenance' => $KamarMaintenance,
-            'jumlahpegawai' => $jumlahpegawai
-        ]);
-    }
+            $datakamar = DataKamar::all();
+            $datapegawai = DataPegawai::all();
+            $jmlhkamar = DataKamar::count();
+            $notif = Notification::latest()->get();
+            $totalnotif = Notification::where('status', 1)->count();
+            $KamarAktif = DataKamar::where('status', 1)->count();
+            $KamarMaintenance = DataKamar::where('status', 2)->count();
+            $jumlahpegawai = DataPegawai::count();
+            
+            return view('admin', [
+                'datakamar' => $data,
+                'tab' => 'daftar-kamar',
+                'datapegawai' => $datapegawai,
+                'jmlhkamar' => $jmlhkamar,
+                'notif' => $notif,
+                'totalnotif' => $totalnotif,
+                'KamarAktif' => $KamarAktif,
+                'KamarMaintenance' => $KamarMaintenance,
+                'jumlahpegawai' => $jumlahpegawai
+            ]);
+        }
+                
+    //     public function findpegawai(Request $request){
+    //         $datakamar = DataKamar::all();
+    //         $datapegawai = DataPegawai::all();
+    //         $jmlhkamar = DataKamar::count();
+    //         $notif = Notification::latest()->get();
+    //         $totalnotif = Notification::where('status', 1)->count();
+    //         $KamarAktif = DataKamar::where('status', 1)->count();
+    //         $KamarMaintenance = DataKamar::where('status', 2)->count();
+    //         $jumlahpegawai = DataPegawai::count();
+    //         $search = $request->search;
+    //         $columns = [
+    //             'nama_pegawai',
+    //             'posisi',
+    //             'shift',
+    //             'nomer_hp',
+    //             'status',
+    //         ];
+            
+    //         $data = DataPegawai::where(function($query) use($search, $columns){
+    //             foreach($columns as $column) {
+    //                 $query->orWhere($column, 'like', "$search");
+    //             }
+    //         })->get();
+                    
+    //     return view('admin', compact(
+    //         'datakamar', 
+    //         'jmlhkamar', 
+    //         'KamarAktif', 
+    //         'datapegawai', 
+    //         'jumlahpegawai', 
+    //         'KamarMaintenance', 
+    //         'notif', 
+    //         'totalnotif'
+    //     ));
+    // }
 
 
     public function delete($id){
@@ -128,17 +164,17 @@ class center_control extends Controller
             'role' => $request->role,
         ]);
 
-        return redirect('/admin');
+        return redirect('/adminutama');
     }
 
     public function import(Request $request){
         Excel::import(new KamarImport, $request->file('file'));
-        return redirect('/admin')->with('success', 'Data berhasil diimport');
+        return redirect('/adminutama')->with('success', 'Data berhasil diimport');
     }
 
     public function importpegawai(Request $request){
         Excel::import(new PegawaiImport, $request->file('file'));
-        return redirect('/admin')->with('success', 'data berhasil diimport');
+        return redirect('/adminutama')->with('success', 'data berhasil diimport');
     }
 
     public function pegawai(){

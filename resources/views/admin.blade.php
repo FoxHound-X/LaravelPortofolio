@@ -46,6 +46,9 @@
     <div class="nav-group">SDM</div>
     <div class="nav-item" data-target="karyawan">
       <span class="nav-icon">◉</span> Daftar Karyawan
+    </div data-target="">
+      <div class="nav-item">
+      <span class="bi bi-person"></span> Tambah Pegawai
     </div>
     <div class="nav-divider"></div>
     <div class="nav-group">Adminitrator Menu</div>\
@@ -267,67 +270,105 @@
     <!-- TAMBAH KAMAR -->
     <section class="section" id="tambah-kamar">
       @if ($errors->any())
-        <div style="color: red; margin-bottom: 10px;">
-          <ul>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <ul class="list-disc list-inside">
             @foreach ($errors->all() as $error)
               <li>{{ $error }}</li>
             @endforeach
           </ul>
         </div>
       @endif
-      <form action="/tambah" method="POST">
-        @csrf
-          <div class="card">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Form Tambah Kamar -->
+        <div class="card">
           <div class="card-header">
-            <div class="card-title">Tambah Kamar Baru</div>
-          </div>
-          <div class="form-body">
-            <div class="form-group">
-              <label>Nomor Kamar</label>
-              <input name="no_kamar" type="text" placeholder="cth. 301"/>
-            </div>
-            <div class="form-group">
-              <label>Tipe Kamar</label>
-              <select name="tipe_kamar">
-                <option value="Standard Twin">Standard Twin</option>
-                <option value="Standard Queen" >Standard Queen</option>
-                <option value="Deluxe King" >Deluxe King</option>
-                <option value="Suite" >Suite</option>
-                <option value="Presidential Suite" >Presidential Suite</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Lantai</label>
-              <input name="lantai" type="number" placeholder="cth. 3"/>
-            </div>
-            <div class="form-group">
-              <label>Harga per Malam (Rp)</label>
-              <input name="harga" type="number" placeholder="cth. 800000"/>
-            </div>
-            <div class="form-group">
-              <label>Kapasitas Tamu</label>
-              <input name="kapasitas" type="number" placeholder="cth. 2"/>
-            </div>
-            <div class="form-group">
-              <label>Status Kamar</label>
-              <select name="status">
-                <option value="1">Tersedia</option>
-                <option value="0">Terisi</option>
-                <option value="2">Maintenance</option>
-              </select>
+            <div class="card-title flex items-center gap-2">
+              <i class="bi bi-house-add text-primary"></i>
+              Tambah Kamar Baru
             </div>
           </div>
-          <div class="form-footer">
-            <button class="btn btn-primary" type="submit" onclick="this.disabled=true; this.form.submit();">SIMPAN KAMAR</button>
-            <button class="btn btn-ghost">BATAL</button>
+          <form action="/tambah" method="POST" class="p-6 space-y-6">
+            @csrf
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  <i class="bi bi-hash mr-1"></i>Nomor Kamar
+                </label>
+                <input name="no_kamar" type="text" placeholder="Contoh: 301" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required/>
+              </div>
+              <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  <i class="bi bi-tag mr-1"></i>Tipe Kamar
+                </label>
+                <select name="tipe_kamar" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                  <option value="Standard Twin">Standard Twin</option>
+                  <option value="Standard Queen">Standard Queen</option>
+                  <option value="Deluxe King">Deluxe King</option>
+                  <option value="Suite">Suite</option>
+                  <option value="Presidential Suite">Presidential Suite</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  <i class="bi bi-building mr-1"></i>Lantai
+                </label>
+                <input name="lantai" type="number" placeholder="Contoh: 3" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required/>
+              </div>
+              <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  <i class="bi bi-cash mr-1"></i>Harga per Malam (Rp)
+                </label>
+                <input name="harga" type="number" placeholder="Contoh: 800000" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required/>
+              </div>
+              <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  <i class="bi bi-people mr-1"></i>Kapasitas Tamu
+                </label>
+                <input name="kapasitas" type="number" placeholder="Contoh: 2" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required/>
+              </div>
+              <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  <i class="bi bi-check-circle mr-1"></i>Status Kamar
+                </label>
+                <select name="status" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                  <option value="1">Tersedia</option>
+                  <option value="0">Terisi</option>
+                  <option value="2">Maintenance</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex gap-4 pt-4">
+              <button class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200 flex items-center gap-2" type="submit" onclick="this.disabled=true; this.form.submit();">
+                <i class="bi bi-save"></i>SIMPAN KAMAR
+              </button>
+              <button class="bg-gray-200 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-300 transition duration-200" type="button" onclick="switchTab('daftar-kamar')">BATAL</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Upload Excel -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title flex items-center gap-2">
+              <i class="bi bi-file-earmark-excel text-green-600"></i>
+              Import Data Kamar via Excel
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="text-sm text-gray-600 mb-4">Upload file Excel untuk menambahkan data kamar secara massal. Pastikan format sesuai dengan template.</p>
+            <form action="{{ route('import.datakamar') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+              @csrf
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Pilih File Excel</label>
+                <input type="file" name="file" accept=".xlsx,.xls" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" required/>
+              </div>
+              <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition duration-200 flex items-center gap-2">
+                <i class="bi bi-upload"></i>Upload Excel
+              </button>
+            </form>
           </div>
         </div>
-      </form>
-      {{-- <form action="{{ route('import.datakamar') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <input type="file" name="file">
-        <button type="submit" >Upload Excel</button>
-      </form> --}}
+      </div>
     </section>
 
         <!-- TAMBAH User -->
