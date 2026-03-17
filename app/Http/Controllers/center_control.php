@@ -19,20 +19,20 @@ class center_control extends Controller
     }
 
     public function admin(){
-        $datakamar = DataKamar::all();
-        $datapegawai = DataPegawai::all();
+        $datakamar = DataKamar::paginate(10);
+        $datapegawai = DataPegawai::paginate(10);
         $jmlhkamar = DataKamar::count();
-        $notif = Notification::latest()->get();
+        $notif = Notification::latest()->limit(10)->get();
         $totalnotif = Notification::where('status', 1)->count();
         $KamarAktif = DataKamar::where('status', 1)->count();
         $KamarMaintenance = DataKamar::where('status', 2)->count();
         $jumlahpegawai = DataPegawai::count();
         return view('admin', compact('datakamar', 'jmlhkamar', 'KamarAktif', 'datapegawai', 'jumlahpegawai', 'KamarMaintenance', 'notif', 'totalnotif'));
         }
-        
+
         public function findkamar(Request $request){
             $search = $request->search;
-            
+
             $data = DataKamar::where('no_kamar', 'like', "%$search%")
             ->orWhere('tipe_kamar', 'like', "%$search%")
             ->get();
@@ -44,7 +44,7 @@ class center_control extends Controller
             $KamarAktif = DataKamar::where('status', 1)->count();
             $KamarMaintenance = DataKamar::where('status', 2)->count();
             $jumlahpegawai = DataPegawai::count();
-            
+
             return view('admin', [
                 'datakamar' => $data,
                 'tab' => 'daftar-kamar',
@@ -57,7 +57,7 @@ class center_control extends Controller
                 'jumlahpegawai' => $jumlahpegawai
             ]);
         }
-                
+
     //     public function findpegawai(Request $request){
     //         $datakamar = DataKamar::all();
     //         $datapegawai = DataPegawai::all();
@@ -75,21 +75,21 @@ class center_control extends Controller
     //             'nomer_hp',
     //             'status',
     //         ];
-            
+
     //         $data = DataPegawai::where(function($query) use($search, $columns){
     //             foreach($columns as $column) {
     //                 $query->orWhere($column, 'like', "$search");
     //             }
     //         })->get();
-                    
+
     //     return view('admin', compact(
-    //         'datakamar', 
-    //         'jmlhkamar', 
-    //         'KamarAktif', 
-    //         'datapegawai', 
-    //         'jumlahpegawai', 
-    //         'KamarMaintenance', 
-    //         'notif', 
+    //         'datakamar',
+    //         'jmlhkamar',
+    //         'KamarAktif',
+    //         'datapegawai',
+    //         'jumlahpegawai',
+    //         'KamarMaintenance',
+    //         'notif',
     //         'totalnotif'
     //     ));
     // }
@@ -138,14 +138,14 @@ class center_control extends Controller
             'status' => $request->status,
             'harga' => $request->harga,
         ]);
-        
+
         Notification::create([
             'title' => 'Tambah Kamar',
             'deskripsi' => ' Kamar Dengan Nomor '.$request->no_kamar.' Telah Berhasil Di Tambahkan',
             'type' => 'create',
             'status' => 1,
         ]);
-            
+
             return redirect('/adminutama');
     }
 
@@ -154,7 +154,7 @@ class center_control extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:user_datas,email',
             'password' => 'required|string|min:8',
-            'role' => 'required|string', 
+            'role' => 'required|string',
         ]);
 
         user_data::create([
@@ -181,5 +181,5 @@ class center_control extends Controller
         $datapegawai = DataPegawai::all();
         return view('admin', compact('datapegawai'));
     }
-    
+
 }

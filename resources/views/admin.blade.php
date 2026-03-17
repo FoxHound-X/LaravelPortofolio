@@ -13,7 +13,7 @@
 <aside id="sidebar">
   <div class="brand">
     <div class="brand-logo">
-      <div class="brand-icon">🏨</div>
+      <div class="brand-icon">icon</div>
       <div>
         <div class="brand-name">Azure Hotel</div>
         <div class="brand-sub">Admin System</div>
@@ -34,37 +34,37 @@
     <div class="nav-item" data-target="daftar-kamar">
       <span class="nav-icon">▦</span> Daftar Kamar
     </div>
-    <div class="nav-item" data-target="pesanan-kamar">
-      <span class="nav-icon">≡</span> Daftar Pesanan
-    </div>
+        <div class="nav-item" data-target="pesanan-kamar">
+          <span class="nav-icon">≡</span> Daftar Pesanan
+        </div>
     @if (Auth::user()->role == 'admin')
-    <div class="nav-item" data-target="tambah-kamar">
-      <span class="nav-icon">+</span> Tambah Kamar
-    </div>
+        <div class="nav-item" data-target="tambah-kamar">
+          <span class="nav-icon">+</span> Tambah Kamar
+        </div>
     @endif
     <div class="nav-divider"></div>
     <div class="nav-group">SDM</div>
     <div class="nav-item" data-target="karyawan">
       <span class="nav-icon">◉</span> Daftar Karyawan
     </div data-target="">
-      <div class="nav-item">
-      <span class="bi bi-person"></span> Tambah Pegawai
-    </div>
+        <div class="nav-item" data-target="">
+          <span class="bi bi-person"></span> Tambah Pegawai
+        </div>
     <div class="nav-divider"></div>
     <div class="nav-group">Adminitrator Menu</div>\
     @if (Auth::user()->role == 'admin')
-    <div class="nav-item-admin" data-target="tambah-user">
-      <span class="bi bi-person"></span> Tambah User
-    </div>
+        <div class="nav-item-admin" data-target="tambah-user">
+          <span class="bi bi-person"></span> Tambah User
+        </div>
     @else
-    <div class="nav-item-admin">
-      <span class="bi bi-person"></span> Tambah User
-    </div>
+        <div class="nav-item-admin">
+          <span class="bi bi-person"></span> Tambah User
+        </div>
     @endif
   </nav>
   <div class="sidebar-footer">
     <div class="nav-item logout">
-      <span class="nav-icon">←</span> 
+      <span class="nav-icon">←</span>
       <a href="{{ route('logout.sys') }}">Logout</a>
     </div>
   </div>
@@ -122,7 +122,7 @@
           </thead>
           <tbody>
               @if ($notif->isEmpty())
-                
+
               @else
               @foreach ($notif as $ntf)
               <tr>
@@ -151,7 +151,7 @@
     </div>
     @else
     @foreach ($notif as $nf)
-      
+
     <section class="section" id="notifikasi">
       <div class="card">
         <div class="card-header">
@@ -188,7 +188,7 @@
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
           @if (Auth::user()->role == 'admin')
-            
+
           <button class="btn btn-primary" onclick="switchTab('tambah-kamar')">+ Tambah Kamar</button>
           @endif
         </div>
@@ -370,6 +370,44 @@
         </div>
       </div>
     </section>
+
+        <!-- TAMBAH Karyawan -->
+    <section class="section" id="tambah-user">
+      <form action="{{ route('user.tambah') }}" method="POST">
+        @csrf
+          <div class="card">
+          <div class="card-header">
+            <div class="card-title">Tambah Data Karyawan</div>
+          </div>
+          <div class="form-body">
+            <div class="form-group">
+              <label>Nama Pegawai</label>
+              <input name="name" type="text" placeholder="Masukkan User"/>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input name="email" type="email" placeholder="Masukkan Email"/>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input name="password" type="password" placeholder="Masukkan User"/>
+            </div>
+            <div class="form-group">
+              <label>Role</label>
+              <select name="role">
+                <option value="admin">Admin</option>
+                <option value="front">Front</option>
+                <option value="visitor">Visitor</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-footer">
+            <button class="btn btn-primary">SIMPAN</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
 
         <!-- TAMBAH User -->
     <section class="section" id="tambah-user">
