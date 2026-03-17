@@ -21,6 +21,7 @@ Route::post('/tambahuser', [center_control::class, 'tambah_user'])->name('user.t
 Route::middleware(['auth', 'nocache'])->group(function () {
     Route::get('/logout', [UserControl::class, 'logout'])->name('logout.sys');
     Route::post('/tambah', [center_control::class, 'tambah_kamar'])->name('tambah.kamar');
+    Route::post('/tambahpegawai', [center_control::class, 'tambah_karyawan'])->name('tambah.karyawan');
     Route::get('/adminutama', [center_control::class, 'admin'])->name('adminpage');
     Route::delete('/kamar/{id}', [center_control::class, 'delete']);
     Route::delete('/pegawai/{id}', [center_control::class, 'delete_datapegawai']);

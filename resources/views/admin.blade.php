@@ -46,18 +46,18 @@
     <div class="nav-group">SDM</div>
     <div class="nav-item" data-target="karyawan">
       <span class="nav-icon">◉</span> Daftar Karyawan
-    </div data-target="">
-        <div class="nav-item" data-target="">
-          <span class="bi bi-person"></span> Tambah Pegawai
-        </div>
+    </div>
+    <div class="nav-item" data-target="tambah-karyawan">
+      <span class="bi bi-person"></span> Tambah Karyawan
+    </div>
     <div class="nav-divider"></div>
-    <div class="nav-group">Adminitrator Menu</div>\
+    <div class="nav-group">Administrator Menu</div>
     @if (Auth::user()->role == 'admin')
         <div class="nav-item-admin" data-target="tambah-user">
           <span class="bi bi-person"></span> Tambah User
         </div>
     @else
-        <div class="nav-item-admin">
+        <div class="nav-item-admin" data-target="tambah-user" style="cursor:not-allowed; opacity:0.6;">
           <span class="bi bi-person"></span> Tambah User
         </div>
     @endif
@@ -372,8 +372,8 @@
     </section>
 
         <!-- TAMBAH Karyawan -->
-    <section class="section" id="tambah-user">
-      <form action="{{ route('user.tambah') }}" method="POST">
+    <section class="section" id="tambah-karyawan">
+      <form action="{{ route('tambah.karyawan') }}" method="POST">
         @csrf
           <div class="card">
           <div class="card-header">
@@ -382,22 +382,25 @@
           <div class="form-body">
             <div class="form-group">
               <label>Nama Pegawai</label>
-              <input name="name" type="text" placeholder="Masukkan User"/>
+              <input name="nama_pegawai" type="text" placeholder="Masukkan User"/>
             </div>
             <div class="form-group">
-              <label>Email</label>
-              <input name="email" type="email" placeholder="Masukkan Email"/>
+              <label>Posisi</label>
+              <input name="posisi" type="text" placeholder="Front Office"/>
             </div>
             <div class="form-group">
-              <label>Password</label>
-              <input name="password" type="password" placeholder="Masukkan User"/>
+              <label>Shift</label>
+              <input name="shift" type="text" placeholder="9.00 - 13.00"/>
             </div>
             <div class="form-group">
-              <label>Role</label>
-              <select name="role">
-                <option value="admin">Admin</option>
-                <option value="front">Front</option>
-                <option value="visitor">Visitor</option>
+              <label>Nomer Hp</label>
+              <input name="nomer_hp" type="text" placeholder="08xxxxxx"/>
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select name="status">
+                <option value="admin">Aktif</option>
+                <option value="front">Libur</option>
               </select>
             </div>
           </div>
@@ -1173,6 +1176,7 @@ function toggleSidebar(){
     'pesanan-kamar': 'Daftar Pesanan',
     'tambah-kamar':  'Tambah Kamar',
     'karyawan':      'Daftar Karyawan',
+    'tambah-karyawan':      'Tambah Karyawan',
   };
   function switchTab(target) {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
