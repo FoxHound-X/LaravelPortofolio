@@ -18,7 +18,7 @@ class center_control extends Controller
         return view('login');
     }
 
-    public function admin($id){
+    public function admin(){
         $datakamar          = DataKamar::paginate(10);
         $datapegawai        = DataPegawai::paginate(10);
         $jmlhkamar          = DataKamar::count();

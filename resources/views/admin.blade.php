@@ -414,46 +414,6 @@
       </form>
     </section>
 
-        <!-- Update Karyawan -->
-    <section class="section" id="update-karyawan">
-      <form action="" method="POST">
-        @csrf
-          <div class="card">
-          <div class="card-header">
-            <div class="card-title">Tambah Data Karyawan</div>
-          </div>
-          <div class="form-body">
-            <div class="form-group">
-              <label>Nama Pegawai</label>
-              <input name="nama_pegawai" type="text" placeholder="Masukkan User" value="{{ old('nama_pegawai'), $data->nama_pegawai }}" required/>
-            </div>
-            <div class="form-group">
-              <label>Posisi</label>
-              <input name="posisi" type="text" placeholder="Front Office"/>
-            </div>
-            <div class="form-group">
-              <label>Shift</label>
-              <input name="shift" type="text" placeholder="9.00 - 13.00"/>
-            </div>
-            <div class="form-group">
-              <label>Nomer Hp</label>
-              <input name="nomer_hp" type="text" placeholder="08xxxxxx"/>
-            </div>
-            <div class="form-group">
-              <label>Status</label>
-              <select name="status">
-                <option value="Aktif">Aktif</option>
-                <option value="libur">Libur</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-footer">
-            <button class="btn btn-primary">SIMPAN</button>
-          </div>
-        </div>
-      </form>
-    </section>
-
         <!-- Edit Karyawan -->
     <section class="section" id="tambah-karyawan">
       <form action="{{ route('tambah.karyawan') }}" method="POST">
