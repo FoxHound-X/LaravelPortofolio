@@ -19,6 +19,8 @@ Route::post('/tambahuser', [center_control::class, 'tambah_user'])->name('user.t
 // Route::get('/alldata', [center_control::class, 'findpegawai'])->name('alldatas');
 
 Route::middleware(['auth', 'nocache'])->group(function () {
+    Route::get('/karyawan/edit/{id}', [center_control::class, 'edit_karyawan'])->name('edit.karyawan');
+    Route::post('/karyawan/update/{id}', [center_control::class, 'update_karyawan'])->name('update.karyawan');
     Route::get('/logout', [UserControl::class, 'logout'])->name('logout.sys');
     Route::post('/tambah', [center_control::class, 'tambah_kamar'])->name('tambah.kamar');
     Route::post('/tambahpegawai', [center_control::class, 'tambah_karyawan'])->name('tambah.karyawan');

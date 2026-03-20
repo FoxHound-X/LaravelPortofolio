@@ -116,17 +116,35 @@ class center_control extends Controller
     }
 
 
-    //Controller Pegawai
-    public function tambah_karyawan(Request $request){
-        $request->validate([
-            'nama_pegawai'  =>'required|string',
-            'posisi'        =>'required|string',
-            'shift'         =>'required|string',
-            'nomer_hp'      =>'required|string',
-            'status'        =>'required|string',
-        ]);
+    // //Controller Pegawai
+    // public function tambah_karyawan(Request $request){
+    //     $request->validate([
+    //         'nama_pegawai'  =>'required|string',
+    //         'posisi'        =>'required|string',
+    //         'shift'         =>'required|string',
+    //         'nomer_hp'      =>'required|string',
+    //         'status'        =>'required|string',
+    //     ]);
 
-        DataPegawai::create([
+    //     DataPegawai::create([
+    //         'nama_pegawai'  => $request->nama_pegawai,
+    //         'posisi'        => $request->posisi,
+    //         'shift'         => $request->shift,
+    //         'nomer_hp'      => $request->nomer_hp,
+    //         'status'        => $request->status,
+    //     ]);
+
+    // }
+
+    public function edit_karyawan($id){
+        $data = DataPegawai::findOrFail($id);
+        return view('admin', compact('data'));
+    }
+
+    public function update_karyawan(Request $request, $id){
+        $data = DataPegawai::findOrFail($id);
+
+        $data->update([
             'nama_pegawai'  => $request->nama_pegawai,
             'posisi'        => $request->posisi,
             'shift'         => $request->shift,
@@ -134,7 +152,7 @@ class center_control extends Controller
             'status'        => $request->status,
         ]);
 
-        return redirect('/adminutama');
+        return redirect()->back()->with('success', 'Berhasil update');
     }
 
     public function delete_datapegawai(Request $request, $id){
