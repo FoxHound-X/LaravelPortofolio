@@ -18,7 +18,7 @@ class center_control extends Controller
         return view('login');
     }
 
-    public function admin(){
+    public function admin($id){
         $datakamar          = DataKamar::paginate(10);
         $datapegawai        = DataPegawai::paginate(10);
         $jmlhkamar          = DataKamar::count();
@@ -28,13 +28,13 @@ class center_control extends Controller
         $KamarMaintenance   = DataKamar::where('status', 2)->count();
         $jumlahpegawai      = DataPegawai::count();
         return view('admin', compact(
-            'datakamar', 
-            'jmlhkamar', 
-            'KamarAktif', 
-            'datapegawai', 
-            'jumlahpegawai', 
-            'KamarMaintenance', 
-            'notif', 
+            'datakamar',
+            'jmlhkamar',
+            'KamarAktif',
+            'datapegawai',
+            'jumlahpegawai',
+            'KamarMaintenance',
+            'notif',
             'totalnotif'));
     }
 
@@ -155,6 +155,20 @@ class center_control extends Controller
         return redirect()->back()->with('success', 'Berhasil update');
     }
 
+    public function edit_pegawai(Request $request, $id){
+        $data = DataPegawai::findOrFail($id);
+
+        $data->update([
+            'nama_pegawai'  => $request -> nama_pegawai,
+            'posisi'        => $request -> posisi,
+            'shift'         => $request -> shift,
+            'nomer_hp'      => $request -> nomer_hp,
+            'status'        => $request -> status,
+        ]);
+
+        return redirect('/adminutama');
+    }
+
     public function delete_datapegawai(Request $request, $id){
         $pegawai = DataPegawai::findOrFail($id);
         Notification::create([
@@ -168,6 +182,7 @@ class center_control extends Controller
 
         return redirect()->back();
     }
+
 
     public function pegawai(){
         $datapegawai = DataPegawai::all();
