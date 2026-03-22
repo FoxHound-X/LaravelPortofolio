@@ -25,4 +25,7 @@ Route::middleware(['auth', 'nocache'])->group(function () {
     Route::get('/adminutama', [center_control::class, 'admin'])->name('adminpage');
     Route::delete('/kamar/{id}', [center_control::class, 'delete']);
     Route::delete('/pegawai/{id}', [center_control::class, 'delete_datapegawai']);
+    Route::get('/karyawan/edit/{id}', [center_control::class, 'edit_karyawan'])->name('edit.pegawai');
+    Route::post('/karyawan/update/{id}', [center_control::class, 'update_karyawan'])->name('update.pegawai');
+
 });

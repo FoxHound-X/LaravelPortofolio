@@ -138,11 +138,19 @@ class center_control extends Controller
 
     public function edit_karyawan($id){
         $data = DataPegawai::findOrFail($id);
-        return view('admin', compact('data'));
+        return view('editkaryawan', compact('data'));
     }
 
     public function update_karyawan(Request $request, $id){
         $data = DataPegawai::findOrFail($id);
+
+        $request->validate([
+            'nama_pegawai'  => 'required',
+            'posisi'        => 'required',
+            'shift'         => 'required',
+            'nomer_hp'      => 'required',
+            'status'        => 'required',
+        ]);
 
         $data->update([
             'nama_pegawai'  => $request->nama_pegawai,
@@ -152,22 +160,9 @@ class center_control extends Controller
             'status'        => $request->status,
         ]);
 
-        return redirect()->back()->with('success', 'Berhasil update');
+        return redirect()->route('adminpage')->with('success', 'Berhasil update');
     }
 
-    public function edit_pegawai(Request $request, $id){
-        $data = DataPegawai::findOrFail($id);
-
-        $data->update([
-            'nama_pegawai'  => $request -> nama_pegawai,
-            'posisi'        => $request -> posisi,
-            'shift'         => $request -> shift,
-            'nomer_hp'      => $request -> nomer_hp,
-            'status'        => $request -> status,
-        ]);
-
-        return redirect('/adminutama');
-    }
 
     public function delete_datapegawai(Request $request, $id){
         $pegawai = DataPegawai::findOrFail($id);
