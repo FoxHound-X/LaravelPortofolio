@@ -38,7 +38,7 @@
 
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <select id="status" name="status" required>
+                    <select name="status" required>
                         <option value="{{ $data->status }}" disabled selected></option>
                         <option value="aktif">Aktif</option>
                         <option value="libur">Libur</option>
