@@ -21,19 +21,19 @@ class center_control extends Controller
     public function admin(){
         $datakamar          = DataKamar::paginate(10);
         $datapegawai        = DataPegawai::paginate(10);
-        $jmlhkamar          = DataKamar::count();
+        $jumlahpegawai      = $datapegawai->total();
+        $statuskamar =  DataKamar::selectRaw("
+            COUNT(*) as total,
+            SUM(status = 1) as aktif,
+            SUM(status = 2) as maintenance
+        ")->first();
         $notif              = Notification::latest()->limit(10)->get();
         $totalnotif         = Notification::where('status', 1)->count();
-        $KamarAktif         = DataKamar::where('status', 1)->count();
-        $KamarMaintenance   = DataKamar::where('status', 2)->count();
-        $jumlahpegawai      = DataPegawai::count();
         return view('admin', compact(
             'datakamar',
-            'jmlhkamar',
-            'KamarAktif',
+            'statuskamar',
             'datapegawai',
             'jumlahpegawai',
-            'KamarMaintenance',
             'notif',
             'totalnotif'));
     }
@@ -46,24 +46,22 @@ class center_control extends Controller
         $data = DataKamar::where('no_kamar', 'like', "%$search%")
         ->orWhere('tipe_kamar', 'like', "%$search%")
         ->get();
-        $datakamar          = DataKamar::all();
-        $datapegawai        = DataPegawai::all();
-        $jmlhkamar          = DataKamar::count();
-        $notif              = Notification::latest()->get();
+        $datakamar          = DataKamar::paginate(10);
+        $datapegawai        = DataPegawai::paginate(10);
+        $jumlahpegawai      = $datapegawai->total();
+        $statuskamar =  DataKamar::selectRaw("
+            COUNT(*) as total,
+            SUM(status = 1) as aktif,
+            SUM(status = 2) as maintenance
+        ")->first();
+        $notif              = Notification::latest()->limit(10)->get();
         $totalnotif         = Notification::where('status', 1)->count();
-        $KamarAktif         = DataKamar::where('status', 1)->count();
-        $KamarMaintenance   = DataKamar::where('status', 2)->count();
-        $jumlahpegawai      = DataPegawai::count();
-
         return view('admin', [
-            'datakamar'         => $data,
             'tab'               => 'daftar-kamar',
+            'datakamar'         => $data,
             'datapegawai'       => $datapegawai,
-            'jmlhkamar'         => $jmlhkamar,
             'notif'             => $notif,
             'totalnotif'        => $totalnotif,
-            'KamarAktif'        => $KamarAktif,
-            'KamarMaintenance'  => $KamarMaintenance,
             'jumlahpegawai'     => $jumlahpegawai
         ]);
     }

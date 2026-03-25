@@ -101,12 +101,12 @@
                 <div class="stats-row">
                     <div class="stat-box">
                         <div class="stat-label">Total Kamar</div>
-                        <div class="stat-num">{{ $jmlhkamar }}</div>
-                        <div class="stat-sub">{{ $KamarMaintenance }} sedang maintenance</div>
+                        <div class="stat-num">{{ $statuskamar->total }}</div>
+                        <div class="stat-sub">{{ $statuskamar->maintenance }} sedang maintenance</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-label">Kamar Aktif</div>
-                        <div class="stat-num">{{ $KamarAktif }}</div>
+                        <div class="stat-num">{{ $statuskamar->aktif }}</div>
                         <div class="stat-sub">2 check-in hari ini</div>
                     </div>
                     <div class="stat-box">
