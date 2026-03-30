@@ -58,11 +58,12 @@ class center_control extends Controller
         $totalnotif         = Notification::where('status', 1)->count();
         return view('admin', [
             'tab'               => 'daftar-kamar',
-            'dataka mar'         => $data,
+            'datakamar'         => $data,
+            'statuskamar'       => $statuskamar,
             'datapegawai'       => $datapegawai,
+            'jumlahpegawai'     => $jumlahpegawai,
             'notif'             => $notif,
-            'totalnotif'        => $totalnotif,
-            'jumlahpegawai'     => $jumlahpegawai
+            'totalnotif'        => $totalnotif
         ]);
     }
 
